@@ -35,13 +35,27 @@ module.exports = function(grunt) {
       tasks: ['cssmin']
     },
     
+    //CSSmin csso ←CSSminを再コンパイル
+    csso: {
+	  dist: {
+	    files: {
+	      'release/asset/css/min.css': ['release/asset/css/min.css']
+	    }
+	  }
+	},
+    
     //JS min
     uglify: {
-    my_target: {
-      files: {
-        'release/asset/js/script.min.js': ['develop/asset/js/script.js', 'develop/asset/js/script.js']
-      	}
-    	}
+	    my_target: {
+	      files: {
+	        'release/asset/js/script.min.js': ['develop/asset/js/script.js', 'develop/asset/js/script.js']
+	      	}
+	    },
+	    Plugins: {
+	      files: {
+	        'release/asset/js/plugin/plugin.min.js': ['develop/asset/js/plugin/*.js']
+	      	}
+	    }
  	 },
  	 
  	 //HTML min
@@ -62,6 +76,34 @@ module.exports = function(grunt) {
       }
     },
     
+    // copy ファイルのコピー → releaseへ
+    copy: {
+      html: {
+        expand: true,
+        cwd: 'develop/asset/',
+        src: ['**/*.html'],
+        dest: 'release/asset/'
+      },
+      css: {
+        expand: true,
+        cwd: 'develop/asset/',
+        src: ['**/*.css'],
+        dest: 'release/asset/'
+      },
+      images: {
+        expand: true,
+        cwd: 'develop/asset/',
+        src: ['img/**'],
+        dest: 'release/asset/'
+      },
+      js: {
+        expand: true,
+        cwd: 'develop/asset/',
+        src: ['js/**'],
+        dest: 'release/asset/'
+      }
+    },
+    
     // clean 不要ファイルを削除
     clean: {
       // 最初にreleaseディレクトリ内を削除
@@ -75,12 +117,14 @@ module.exports = function(grunt) {
   
   //タスク読み込み
   grunt.loadNpmTasks('grunt-contrib-cssmin'); //CSSmin
+  grunt.loadNpmTasks('grunt-csso'); //csso ←CSSminよりいいらしい
+  grunt.loadNpmTasks('grunt-contrib-copy'); //CSSmin csso
   grunt.loadNpmTasks('grunt-contrib-uglify');  //JSmin
   grunt.loadNpmTasks('grunt-contrib-htmlmin');  //htmlmin
   grunt.loadNpmTasks('grunt-contrib-watch'); //ウォッチ
   
   //defaultを設定すると"grunt"だけで下記実行
-  grunt.registerTask('default', ['cssmin', 'uglify', 'htmlmin', 'watch']);
+  grunt.registerTask('default', ['cssmin', 'csso', 'copy', 'uglify', 'htmlmin', 'watch']);
 };
 
 /*
