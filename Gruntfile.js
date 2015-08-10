@@ -21,6 +21,19 @@ module.exports = function(grunt) {
   	
   	// package.jsonの定義
   	pkg: grunt.file.readJSON('package.json'),
+
+
+    //SASS
+    sass: {                              // Task
+    dist: {                            // Target
+        options: {                       // Target options
+         style: 'expanded'
+        },
+       files: {                         // Dictionary of files
+         'develop/asset/css/style.css': 'develop/asset/css/style.scss'       // 'destination': 'source'
+        }
+      }
+    },
   
   	//CSS min
   	cssmin: {
@@ -31,29 +44,35 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['develop/asset/css/*.css'],
-      tasks: ['cssmin']
+      sass: {
+        files: ['develop/asset/css/*.scss'],
+        tasks: ['sass']
+      },
+      cssmin: {
+        files: ['develop/asset/css/*.css'],
+        tasks: ['cssmin']
+      },
+      uglify: {
+        files: ['develop/asset/js/*.js'],
+        tasks: ['uglify']
+      },
+      htmlmin: {
+        files: ['develop/*.html'],
+        tasks: ['htmlmin']
+      }
     },
     
-    //CSSmin csso ←CSSminを再コンパイル
-    csso: {
-	  dist: {
-	    files: {
-	      'release/asset/css/min.css': ['release/asset/css/min.css']
-	    }
-	  }
-	},
     
     //JS min
     uglify: {
 	    my_target: {
 	      files: {
-	        'release/asset/js/script.min.js': ['develop/asset/js/script.js', 'develop/asset/js/script.js']
+	        'release/asset/js/script.min.js': ['develop/asset/js/*.js']
 	      	}
 	    },
 	    Plugins: {
 	      files: {
-	        'release/asset/js/plugin/plugin.min.js': ['develop/asset/js/plugin/*.js']
+	        'release/asset/js/engine/plugin/plugin.min.js': ['develop/asset/js/engine/plugin/*.js']
 	      	}
 	    }
  	 },
@@ -117,14 +136,14 @@ module.exports = function(grunt) {
   
   //タスク読み込み
   grunt.loadNpmTasks('grunt-contrib-cssmin'); //CSSmin
-  grunt.loadNpmTasks('grunt-csso'); //csso ←CSSminよりいいらしい
   grunt.loadNpmTasks('grunt-contrib-copy'); //CSSmin csso
   grunt.loadNpmTasks('grunt-contrib-uglify');  //JSmin
   grunt.loadNpmTasks('grunt-contrib-htmlmin');  //htmlmin
   grunt.loadNpmTasks('grunt-contrib-watch'); //ウォッチ
+  grunt.loadNpmTasks('grunt-contrib-sass'); //sass
   
   //defaultを設定すると"grunt"だけで下記実行
-  grunt.registerTask('default', ['cssmin', 'csso', 'copy', 'uglify', 'htmlmin', 'watch']);
+  grunt.registerTask('default', ['sass','cssmin', 'copy', 'uglify', 'htmlmin', 'watch']);
 };
 
 /*

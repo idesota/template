@@ -8,3 +8,5 @@ $(function(){
 		return false;
 	});
 });
+
+/*hoge*/

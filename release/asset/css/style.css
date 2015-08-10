@@ -1,38 +1,55 @@
 body {
-  background: #f1f1f0 !important; }
+  background: #f1f1f0 !important;
+}
 
 .btn {
   display: block;
   width: 32px;
   height: 32px;
-  background: url(../img/btn.png) no-repeat; }
-  .btn .asd {
-    color: black; }
-  .btn:hover {
-    -webkit-animation: ani-ninja 0.6s steps(9, start) forwards;
-    -moz-animation: ani-ninja 0.6s steps(9, start) forwards;
-    animation: ani-ninja 0.6s steps(9, start) forwards; }
+  background: url(../img/btn.png) no-repeat;
+}
+
+.btn .asd {
+  color: black;
+}
+
+.btn:hover {
+  -webkit-animation: ani-ninja 0.6s steps(9, start) forwards;
+  -moz-animation: ani-ninja 0.6s steps(9, start) forwards;
+  animation: ani-ninja 0.6s steps(9, start) forwards;
+}
 
 a {
-  color: black; }
+  color: black;
+}
 
 @-webkit-keyframes ani-ninja {
   0% {
-    background-position: 0 0; }
-
+    background-position: 0 0;
+  }
   100% {
-    background-position: -288px 0; } }
-
+    background-position: -288px 0;
+  }
+}
 @-moz-keyframes ani-ninja {
   0% {
-    background-position: 0 0; }
-
+    background-position: 0 0;
+  }
   100% {
-    background-position: -288px 0; } }
-
+    background-position: -288px 0;
+  }
+}
 @keyframes ani-ninja {
   0% {
-    background-position: 0 0; }
-
+    background-position: 0 0;
+  }
   100% {
-    background-position: -288px 0; } }
+    background-position: -288px 0;
+  }
+}
+/*hoge*/
+.asd {
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=style.css.map */
